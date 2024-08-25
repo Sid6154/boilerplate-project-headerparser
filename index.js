@@ -20,11 +20,19 @@ app.get('/', function (req, res) {
 });
 
 // your first API endpoint...
-app.get('/api/hello', function (req, res) {
-  res.json({ greeting: 'hello API' });
+app.get('/api/whoami', function (req, res) {
+  res.json({ipaddress:req.socket.remoteAddress,
+    language:req.headers['accept-language'],
+    software:req.headers['user-agent']
+  });
 });
 
-// listen for requests :)
-var listener = app.listen(process.env.PORT || 3000, function () {
+// // listen for requests :)
+// var listener = app.listen(process.env.PORT || 3000, function () {
+//   console.log('Your app is listening on port ' + listener.address().port);
+// });
+// Listen on port set in environment variable or default to 3001
+const port = process.env.PORT || 3001;  // Changed from 3000 to 3001
+var listener = app.listen(port, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
